@@ -7,6 +7,9 @@ namespace AlgorithmsAndDataStructures
 {
     internal class Program
     {
+        /// <summary>
+        /// Метод Main.
+        /// </summary>
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
