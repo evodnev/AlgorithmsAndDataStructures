@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlgorithmsAndDataStructures.LessonTask
 {
-    internal class Lesson1TaskPrimeNumber : ILessonTask
+    public class Lesson1TaskPrimeNumber : ILessonTask
     {
         public string TaskName => "PrimeNumber";
 
@@ -16,9 +16,9 @@ namespace AlgorithmsAndDataStructures.LessonTask
 
         public string TaskHelp => "Вводите целые числа, которые будут проверяться на принадлежность к множеству простых. Для выхода наберите 'exit' или '0' и нажмите [Enter]";
 
-        public void Run()
+        public void RunInteractive()
         {
-            Log.Logger.Information($"Интерактивный режим работы не предусмотрен");
+            //Log.Logger.Information($"Интерактивный режим работы не предусмотрен");
         }
 
         public void RunTest()
@@ -28,7 +28,7 @@ namespace AlgorithmsAndDataStructures.LessonTask
             Log.Logger.Information($"Положительный сценарий. Значение: {a}, простое - {IsNumberPrime(a)}");
             Log.Logger.Information($"Отрицательный сценарий. Значение: {b}, простое - {IsNumberPrime(b)}");
 
-            long maxValue = 50000;
+            long maxValue = 5000;
             Log.Logger.Information($"Эксперимент 1. Анализ производительности алгоритма v1. Перебор чисел до {maxValue}");
             int primeNumbersCount = 0;
             Stopwatch sw = new Stopwatch();
@@ -59,7 +59,7 @@ namespace AlgorithmsAndDataStructures.LessonTask
         /// </summary>
         /// <remarks>Базовая реализация, полный перебор.</remarks>
         /// <param name="number">Проверяемое число.</param>
-        bool IsNumberPrime(long number)
+        public static bool IsNumberPrime(long number)
         {
             int d = 0;
             int i = 2;
@@ -86,7 +86,7 @@ namespace AlgorithmsAndDataStructures.LessonTask
         /// </summary>
         /// <remarks>Улучшенная реализация, оптимизированный перебор.</remarks>
         /// <param name="number">Проверяемое число.</param>
-        bool IsNumberPrimeV2(long number)
+        public static bool IsNumberPrimeV2(long number)
         {
             if (number > 2 && (number % 2) == 0)
                 return false;

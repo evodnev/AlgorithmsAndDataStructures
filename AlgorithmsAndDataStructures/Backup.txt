@@ -1,0 +1,79 @@
+﻿            Tree<int> tree = new Tree<int>();
+            tree.AddNode(new Node<int>(1000));
+            tree.AddNode(new Node<int>(1100));
+            tree.AddNode(new Node<int>(1200));
+            tree.AddNode(new Node<int>(1210));
+            tree.AddNode(new Node<int>(1220));
+            tree.AddNode(new Node<int>(1230));
+            tree.AddNode(new Node<int>(1240));
+            tree.PrintTree();
+            //GraphNode<string> node1 = new GraphNode<string>()
+            //{
+            //    Value = "Я"
+            //};
+            //GraphNode<string> node2 = new GraphNode<string>()
+            //{
+            //    Value = "мама"
+            //};
+            //GraphNode<string> node3 = new GraphNode<string>()
+            //{
+            //    Value = "папа"
+            //};
+            //GraphNode<string> node4 = new GraphNode<string>()
+            //{
+            //    Value = "брат"
+            //};
+
+            //Edge<string> node1node2 = new Edge<string>() { Node = node2 };
+            //Edge<string> node1node3 = new Edge<string>() { Node = node3 };
+            //Edge<string> node1node4 = new Edge<string>() { Node = node4 };
+
+            //node1.Edges.Add(node1node2);
+            //node1.Edges.Add(node1node3);
+            //node1.Edges.Add(node1node4);
+
+            //// Работа с классами.
+            //List<IPet> pets = new List<IPet>();
+            //pets.Add(new Dog("Шарик"));
+            //pets.Add(new Dog("Тузик"));
+            //pets.Add(new Cat("Мурка"));
+            //foreach (IPet pet in pets)
+            //{
+            //    pet.DoVoice();
+            //}
+
+            //IInputOutputHelper inputOutputHelper = new ConsoleInputOutputHelper();
+            //int value1 = inputOutputHelper.InputSingleValue<int>("введите Int32");
+            //long value2 = inputOutputHelper.InputSingleValue<long>("введите Int64");
+            //string value3 = inputOutputHelper.InputSingleValue<string>("введите String");
+            //bool value4 = inputOutputHelper.InputSingleValue<bool>("введите Boolean");
+            //DateTime value5 = inputOutputHelper.InputSingleValue<DateTime>("введите DateTime");
+
+            //DoCommandProcessCycle();
+
+            //// Инициализирует генератор случайных чисел.
+            //Random rnd = new Random(DateTime.Now.Millisecond);
+
+
+                        int number = 16;
+            Console.WriteLine($"GetVariantsCount:{number} - {VariantsCounter.GetVariantsCountRecursive(number)}");
+            Stopwatch sw = new Stopwatch();
+            int maxValue = 500;
+            //sw.Start();
+            //for (int i = 1; i < maxValue; i++)
+            //    Console.WriteLine($"GetVariantsCount:{i} - {VariantsCounter.GetVariantsCountRecursive(i)}");
+            //sw.Stop();
+            //Console.WriteLine($"Elapsed recursive: {sw.Elapsed}");
+            sw.Reset();
+            sw.Start();
+            for (int i = 1; i < maxValue; i++)
+                Console.WriteLine($"GetVariantsCountRecursiveMod:{i} - {VariantsCounter.GetVariantsCountRecursiveMod(i)}");
+            sw.Stop();
+            Console.WriteLine($"Elapsed recursive mod: {sw.Elapsed}");
+
+
+                        KingVariants kingVariants = new KingVariants(new ComputeStrategySimple());
+            kingVariants.Run();
+            Console.WriteLine();
+            kingVariants = new KingVariants(new ComputeStrategyDiag());
+            kingVariants.Run();

@@ -1,10 +1,18 @@
-﻿using AlgorithmsAndDataStructures.LessonTask;
+﻿using AlgorithmsAndDataStructures.InputOutput;
+using AlgorithmsAndDataStructures.LessonTask;
+using AlgorithmsAndDataStructures.PetShop;
+using AlgorithmsAndDataStructures.Tree;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace AlgorithmsAndDataStructures
 {
@@ -16,7 +24,8 @@ namespace AlgorithmsAndDataStructures
         private static List<ILessonTask> _lessonTasks = new List<ILessonTask>()
         {
             { new LessonTaskEmptyExample() },
-            { new Lesson1TaskPrimeNumber() }
+            { new Lesson1TaskPrimeNumber() },
+            { new Lesson8Sorting() }
         };
 
         static void Main(string[] args)
@@ -31,7 +40,16 @@ namespace AlgorithmsAndDataStructures
 
             Log.Logger.Information("Приложение запущено");
 
-            DoCommandProcessCycle();
+            //var myAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "AlgorithmsAndDataStructures.dll"));
+            //var myType = myAssembly.GetType("AlgorithmsAndDataStructures.LessonTask.Lesson1TaskPrimeNumber");
+            //var myInstance = Activator.CreateInstance(myType);
+            //ILessonTask dynamicLessonTask = (ILessonTask)myInstance;
+            //_lessonTasks.Add(dynamicLessonTask);
+            //var methodInfo = myType.GetMethod("RunTest");
+            //methodInfo.Invoke(myInstance, null);
+
+            Lesson8Sorting lesson8Sorting = new Lesson8Sorting();
+            lesson8Sorting.RunTest();
 
             Console.WriteLine("Нажмите 'Enter' для завершения работы");
             Console.ReadLine();
@@ -57,7 +75,7 @@ namespace AlgorithmsAndDataStructures
                 {
                     Console.WriteLine($"Запуск задания {task.TaskName}");
                     task.RunTest();
-                    task.Run();
+                    task.RunInteractive();
                 }
                 // Условие для выхода из цикла обработки команд.
                 if (input == "0" || input == "exit")
@@ -85,5 +103,69 @@ namespace AlgorithmsAndDataStructures
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
         }
+    }
+
+    public class Benchmark
+    {
+        long maxValueToCheck = 5000;
+
+        [Benchmark]
+        public void MeasureVar1()
+        {
+            Stopwatch sw = new Stopwatch();
+            int simpleNumbersCount;
+            sw.Start();
+            simpleNumbersCount = 0;
+            for (long i = 2; i <= maxValueToCheck; i++)
+            {
+                if (Lesson1TaskPrimeNumber.IsNumberPrime(i))
+                {
+                    //Console.Write($"{i} ");
+                    simpleNumbersCount++;
+                }
+            }
+            sw.Stop();
+            Console.WriteLine($"Var 1. Time: {sw.Elapsed}. Primes: {simpleNumbersCount}/{maxValueToCheck}");
+        }
+
+        [Benchmark]
+        public void MeasureVar2()
+        {
+            Stopwatch sw = new Stopwatch();
+            int simpleNumbersCount;
+            sw.Reset();
+            sw.Start();
+            simpleNumbersCount = 0;
+            for (long i = 2; i <= maxValueToCheck; i++)
+            {
+                if (Lesson1TaskPrimeNumber.IsNumberPrimeV2(i))
+                {
+                    //Console.Write($"{i} ");
+                    simpleNumbersCount++;
+                }
+            }
+            sw.Stop();
+            Console.WriteLine($"Var 2. Time: {sw.Elapsed}. Primes: {simpleNumbersCount}/{maxValueToCheck}");
+        }
+
+        //[Benchmark]
+        //public void MeasureVar3()
+        //{
+        //    Stopwatch sw = new Stopwatch();
+        //    int simpleNumbersCount;
+        //    sw.Reset();
+        //    sw.Start();
+        //    simpleNumbersCount = 0;
+        //    for (long i = 2; i <= maxValueToCheck; i++)
+        //    {
+        //        if (SimpleNumberChecker.IsNumberSimpleByAmmoraite(i))
+        //        {
+        //            //Console.Write($"{i} ");
+        //            simpleNumbersCount++;
+        //        }
+        //    }
+        //    sw.Stop();
+        //    Console.WriteLine($"Var 3. Time: {sw.Elapsed}. Primes: {simpleNumbersCount}/{maxValueToCheck}");
+        //}
     }
 }

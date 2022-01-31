@@ -14,7 +14,7 @@ namespace AlgorithmsAndDataStructures.LessonTask
         public string TaskDescription => "Пример 'пустого' задания, не выполняющего работу";
         public string TaskHelp => "Подсказка по работе с заданием";
 
-        public void Run()
+        public void RunInteractive()
         {
             Log.Logger.Information($"Выполняется работа в интерактивном режиме. Успешно");
         }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AlgorithmsAndDataStructures": {
+      "commandName": "Project",
+      "commandLineArgs": "someParameter param2 param3"
+    }
+  }
+}

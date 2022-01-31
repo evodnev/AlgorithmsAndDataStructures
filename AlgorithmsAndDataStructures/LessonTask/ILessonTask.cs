@@ -16,6 +16,6 @@ namespace AlgorithmsAndDataStructures.LessonTask
 
         void RunTest();
 
-        void Run();
+        void RunInteractive();
     }
 }
